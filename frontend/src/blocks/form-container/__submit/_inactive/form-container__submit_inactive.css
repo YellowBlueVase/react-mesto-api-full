@@ -1,0 +1,10 @@
+.form-container__submit_inactive {
+    border: 1px solid #000000;
+    opacity: 0.2;
+    background-color: #ffffff;
+    color: #000000;
+} 
+
+.form-container__submit_inactive:hover {
+    opacity: 0.2;
+}

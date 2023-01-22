@@ -1,0 +1,7 @@
+.popup__container {
+    border-radius: 0px;
+    box-sizing: border-box;
+    position: relative;
+    align-self: center;
+    justify-self: center;
+}

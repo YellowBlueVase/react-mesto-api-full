@@ -1,0 +1,11 @@
+.form-container__input_email {
+    background-color: black;
+    color: white;
+    border-bottom: 1px solid white;
+    padding-bottom: 13px;
+}
+
+.form-container__input_email:focus {
+    font-weight: bold;
+    color: white;
+}

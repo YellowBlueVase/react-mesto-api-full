@@ -1,0 +1,20 @@
+.image-container__title {
+    color: #ffffff;
+    font-size: 12px;
+    line-height: 15px;
+    font-style: normal;
+    font-weight: normal;
+    max-width: 291px;
+    margin: 10px 0 0;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    align-self: flex-start;
+}
+
+@media all and (max-width: 321px) {
+    .image-container__title {
+        max-width: 240px;
+    }
+}

@@ -1,0 +1,18 @@
+.footer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: auto 200px 60px;
+    max-width: 100%;
+    flex-shrink: 0;
+    position: sticky;
+    bottom: 0;
+    background-color: black;
+}
+
+
+@media all and (max-width: 1280px) {
+    .footer {
+        margin: 48px 19px 36px;
+    }
+}

@@ -1,0 +1,7 @@
+.header__profile-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+}
