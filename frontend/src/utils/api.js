@@ -141,10 +141,10 @@ class Api {
 }
 
 const api = new Api({
-    url: 'https://mesto.nomoreparties.co/v1/cohort-49/',
+    url: 'https://api.kirill-mesto-cloud.nomoredomains.rocks/',
     headers: {
       'content-type': 'application/json',
-      Authorization: '2cb75315-5b64-4ef0-b9e0-7942d91d0c8e'
+      Authorization: 'eb28135ebcfc17578f96d4d65b6c7871f2c803be4180c165061d5c2db621c51b'
     }})
 
 export default api;

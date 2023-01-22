@@ -1,4 +1,4 @@
-const BASE_URL = 'https://auth.nomoreparties.co';
+const BASE_URL = 'https://api.kirill-mesto-cloud.nomoredomains.rocks';
 
 function getResponseData(res) {
     if (res.ok) {
