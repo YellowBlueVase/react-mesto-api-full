@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const routerUsers = require('./routes/users');
 const routerCards = require('./routes/cards');
 // const limiter = require('./middlewares/limiter');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const centralError = require('./errors/centralError');
 
 mongoose.set('strictQuery', true);
@@ -21,11 +22,13 @@ const app = express();
 
 // app.use(helmet);
 // app.use(limiter);
+app.use(requestLogger);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use('/', routerUsers);
 app.use('/', routerCards);
+app.use(errorLogger);
 app.use(errors());
 app.use(centralError);
 
