@@ -1,7 +1,7 @@
 # react-mesto-api-full
 Репозиторий для приложения проекта `Mesto`, включающий фронтенд и бэкенд части приложения со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями. Бэкенд расположите в директории `backend/`, а фронтенд - в `frontend/`. 
   
-Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
-IP 62.84.127.106
-Frontend https://www.kirill-mesto-cloud.nomoredomains.rocks
-Backend https://api.kirill-mesto-cloud.nomoredomains.rocks
+Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке. __
+IP 62.84.127.106 __
+Frontend https://www.kirill-mesto-cloud.nomoredomains.rocks __
+Backend https://api.kirill-mesto-cloud.nomoredomains.rocks __
