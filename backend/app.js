@@ -22,25 +22,20 @@ const app = express();
 
 // app.use(helmet);
 // app.use(limiter);
-console.log('starting requestLogger');
 app.use(requestLogger);
-console.log('starting bodyParser1');
 app.use(bodyParser.json());
-console.log('starting bodyParser2');
 app.use(bodyParser.urlencoded({ extended: true }));
-console.log('starting cookieParser');
 app.use(cookieParser());
-console.log('starting routerUsers');
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 app.use('/', routerUsers);
-console.log('starting routerCards');
 app.use('/', routerCards);
-console.log('starting errorLogger');
 app.use(errorLogger);
-console.log('starting errors');
 app.use(errors());
-console.log('starting centralError');
 app.use(centralError);
-console.log('starting app.listen');
 
 app.listen(PORT, () => {
 });
