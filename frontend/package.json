@@ -1,5 +1,5 @@
 {
-  "name": "react-mesto-api-full_frontend",
+  "name": "frontend-mest",
   "version": "0.1.0",
   "homepage": ".",
   "private": true,
@@ -9,16 +9,15 @@
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^5.2.1",
+    "react-router": "^5.2.0",
     "react-scripts": "5.0.1",
+    "require-resolve": "^0.0.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -40,6 +39,17 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^4.0.0"
+    "assert": "^2.0.0",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.0",
+    "gh-pages": "^4.0.0",
+    "https-browserify": "^1.0.0",
+    "os-browserify": "^0.3.0",
+    "process": "^0.11.10",
+    "react-app-rewired": "^2.2.1",
+    "react-router-dom": "^5.2.0",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "url": "^0.11.0"
   }
 }
