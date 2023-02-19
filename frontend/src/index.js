@@ -5,11 +5,11 @@ import App from './components/App';
 import {HashRouter} from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
-const http = require('http');
-const server = http.createServer((request, response) => {
-  console.log('Пришел запрос')
-});
-server.listen(3000);
+// const http = require('http');
+// const server = http.createServer((request, response) => {
+//   console.log('Пришел запрос')
+// });
+// server.listen(3000);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

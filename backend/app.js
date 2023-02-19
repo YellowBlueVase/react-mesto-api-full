@@ -7,7 +7,6 @@ const cookieParser = require('cookie-parser');
 const routerUsers = require('./routes/users');
 const routerCards = require('./routes/cards');
 // const limiter = require('./middlewares/limiter');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
 const centralError = require('./errors/centralError');
 
 mongoose.set('strictQuery', true);
@@ -20,9 +19,21 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
-// app.use(helmet);
-// app.use(limiter);
-app.use(requestLogger);
+const allowedCors = [
+  'https://praktikum.tk',
+  'http://praktikum.tk',
+  'localhost:3000',
+  'http://kirill-mesto-cloud.nomoredomains.rocks',
+];
+
+app.use((req, res, next) => {
+  const { origin } = req.headers;
+  if (allowedCors.includes(origin)) {
+    // устанавливаем заголовок, который разрешает браузеру запросы с этого источника
+    res.header('Access-Control-Allow-Origin', '*');
+  }
+  next();
+});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -33,7 +44,6 @@ app.get('/crash-test', () => {
 });
 app.use('/', routerUsers);
 app.use('/', routerCards);
-app.use(errorLogger);
 app.use(errors());
 app.use(centralError);
 
