@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const cors = require('./middlewares/cors');
+const cors = require('cors');
 // const helmet = require('helmet');
 const routerUsers = require('./routes/users');
 const routerCards = require('./routes/cards');
@@ -20,7 +20,21 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
-app.use(cors);
+const options = {
+  origin: [
+    'localhost:3000',
+    'http://kirill-mesto-cloud.nomoredomains.rocks',
+    'https://kirill-mesto-cloud.nomoredomains.rocks',
+    'http://api.kirill-mesto-cloud.nomoredomains.rocks',
+    'https://api.kirill-mesto-cloud.nomoredomains.rocks',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  credentials: true,
+};
+app.use('*', cors(options));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
