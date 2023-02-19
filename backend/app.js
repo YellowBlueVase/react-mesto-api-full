@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const cors = require('./middlewares/cors');
 // const helmet = require('helmet');
 const routerUsers = require('./routes/users');
 const routerCards = require('./routes/cards');
@@ -19,23 +20,7 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
-const allowedCors = [
-  'https://praktikum.tk',
-  'http://praktikum.tk',
-  'localhost:3000',
-  'http://kirill-mesto-cloud.nomoredomains.rocks',
-  'https://kirill-mesto-cloud.nomoredomains.rocks',
-  'http://api.kirill-mesto-cloud.nomoredomains.rocks',
-  'https://api.kirill-mesto-cloud.nomoredomains.rocks',
-];
-
-app.use((req, res, next) => {
-  const { origin } = req.headers;
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-  }
-  next();
-});
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
