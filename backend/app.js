@@ -24,13 +24,15 @@ const allowedCors = [
   'http://praktikum.tk',
   'localhost:3000',
   'http://kirill-mesto-cloud.nomoredomains.rocks',
+  'https://kirill-mesto-cloud.nomoredomains.rocks',
+  'http://api.kirill-mesto-cloud.nomoredomains.rocks',
+  'https://api.kirill-mesto-cloud.nomoredomains.rocks',
 ];
 
 app.use((req, res, next) => {
   const { origin } = req.headers;
   if (allowedCors.includes(origin)) {
-    // устанавливаем заголовок, который разрешает браузеру запросы с этого источника
-    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin', origin);
   }
   next();
 });
