@@ -144,7 +144,7 @@ const api = new Api({
     url: 'https://api.kirill-mesto-cloud.nomoredomains.rocks/',
     headers: {
       'content-type': 'application/json',
-      Authorization: 'eb28135ebcfc17578f96d4d65b6c7871f2c803be4180c165061d5c2db621c51b'
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }})
 
 export default api;

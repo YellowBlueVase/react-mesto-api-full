@@ -23,6 +23,7 @@ const app = express();
 const options = {
   origin: [
     'localhost:3000',
+    'http://localhost:3000',
     'http://kirill-mesto-cloud.nomoredomains.rocks',
     'https://kirill-mesto-cloud.nomoredomains.rocks',
     'http://api.kirill-mesto-cloud.nomoredomains.rocks',
