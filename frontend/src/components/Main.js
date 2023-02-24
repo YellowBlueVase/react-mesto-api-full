@@ -42,7 +42,7 @@ function Main({onEditProfile, onEditAvatar, onAddPlace, cards, onCardClick, onCa
         ></button>
       </section>
       <section className="elements">
-        {cards.map((card) => {
+        {/* {cards.map((card) => {
           return (
             <Card 
               key={card._id} 
@@ -51,7 +51,7 @@ function Main({onEditProfile, onEditAvatar, onAddPlace, cards, onCardClick, onCa
               onCardLike={onCardLike}
               onCardDelete={onCardDelete}/>
           );
-        })}
+        })} */}
       </section>
     </main>
   );

@@ -1,11 +1,11 @@
 class Api {
     constructor(config) {
         this._url = config.url;
-        this._headers = config.headers;
         this._cardId = config._id;
         this._likesCounter = config.likes;
-        this._urlCards = `${this._url}cards/`;
-        this._urlProfile = `${this._url}users/me/`;
+        this._urlCards = `${this._url}cards`;
+        this._urlProfile = `${this._url}users/me`;
+        this._urlAvatar = `${this._url}avatar`;
     }
 
     _getResponseData(url, res) {
@@ -14,21 +14,13 @@ class Api {
       return Promise.reject(`Ошибка по адресу ${url}, статус ошибки ${res.status}`)
     }
 
-    // _request(url, options) {
-    //   return fetch(url, options).then((res) => {return this._getResponseData(url, res)})
-    // }
-
-    // getProfileInfo() {
-    //   this._request(this._urlProfile, {
-    //     method: 'GET',
-    //     headers: this._headers
-    //     })
-    // }
-
     getProfileInfo() {
       return fetch(this._urlProfile, {
         method: 'GET',
-        headers: this._headers
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        },
         })
       .then((res) => {
          return this._getResponseData(this._urlProfile, res)
@@ -36,19 +28,25 @@ class Api {
     }
 
     getCardInfo(cardId) {
-      return fetch(`${this._urlCards}${cardId}`, {
+      return fetch(`${this._urlCards}/${cardId}`, {
         method: 'GET',
-        headers: this._headers
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        },
         })
       .then((res) => {
-          return this._getResponseData(`${this._urlCards}${cardId}`, res)
+          return this._getResponseData(`${this._urlCards}/${cardId}`, res)
         })
     }
     
     getInitialCards() {
       return fetch(this._urlCards, {
         method: 'GET',
-        headers: this._headers
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        },
         })
         .then((res) => {
           return this._getResponseData(this._urlCards, res)
@@ -58,7 +56,10 @@ class Api {
     updateProfile(data) {
       return fetch(this._urlProfile, {
         method: 'PATCH',
-        headers: this._headers,
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        },
         body: JSON.stringify({
           name:data.name,
           about:data.about
@@ -72,7 +73,10 @@ class Api {
     addNewCard(data) {
       return fetch(this._urlCards, {
         method: 'POST',
-        headers: this._headers,
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        },
         body: JSON.stringify({
           name: data.name,
           link: data.link,
@@ -86,65 +90,77 @@ class Api {
       }
 
     deleteCard(cardId) {
-      return fetch(`${this._urlCards}${cardId}`, {
+      return fetch(`${this._urlCards}/${cardId}`, {
         method: 'DELETE',
-        headers: this._headers,
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        },
         })
       .then((res) => {
-          return this._getResponseData(`${this._urlCards}${cardId}`, res)
+          return this._getResponseData(`${this._urlCards}/${cardId}`, res)
         })
       }
     
     addLike(cardId) {
-      return fetch(`${this._urlCards}${cardId}/likes`, {
+      return fetch(`${this._urlCards}/${cardId}/likes`, {
         method: 'PUT',
-        headers: this._headers,
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        },
         })
         .then((res) => {
-          return this._getResponseData(`${this._urlCards}${cardId}/likes`, res)
+          return this._getResponseData(`${this._urlCards}/${cardId}/likes`, res)
         })
     }
     
     deleteLike(cardId) {
-      return fetch(`${this._urlCards}${cardId}/likes`, {
+      return fetch(`${this._urlCards}/${cardId}/likes`, {
         method: 'DELETE',
-        headers: this._headers,
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        },
         })
         .then((res) => {
-          return this._getResponseData(`${this._urlCards}${cardId}/likes`, res)
+          return this._getResponseData(`${this._urlCards}/${cardId}/likes`, res)
         })
     }
 
     showLikes(cardId) {
-      return fetch(`${this._urlCards}${cardId}/likes`, {
+      return fetch(`${this._urlCards}/${cardId}/likes`, {
         method: 'GET',
-        headers: this._headers,
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        },
         })
         .then((res) => {
-          return this._getResponseData(`${this._urlCards}${cardId}/likes`, res)
+          return this._getResponseData(`${this._urlCards}/${cardId}/likes`, res)
         })
     }
 
     updateAvatar(data) {
-      return fetch(`${this._urlProfile}avatar`, {
+      return fetch(`${this._urlAvatar}`, {
         method: 'PATCH',
-        headers: this._headers,
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        },
         body: JSON.stringify({
           avatar:data
         })
         })
         .then(res => {
-          return this._getResponseData(this._urlProfile, res)
+          return this._getResponseData(this._urlAvatar, res)
         })
     }
 
 }
 
 const api = new Api({
-    url: 'https://api.kirill-mesto-cloud.nomoredomains.rocks/',
-    headers: {
-      'content-type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-    }})
+    // url: 'https://api.kirill-mesto-cloud.nomoredomains.rocks/',
+    url: 'http://localhost:3000/'})
 
 export default api;

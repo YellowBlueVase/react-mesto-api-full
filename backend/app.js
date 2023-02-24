@@ -24,6 +24,8 @@ const options = {
   origin: [
     'localhost:3000',
     'http://localhost:3000',
+    'localhost:3001',
+    'http://localhost:3001',
     'http://kirill-mesto-cloud.nomoredomains.rocks',
     'https://kirill-mesto-cloud.nomoredomains.rocks',
     'http://api.kirill-mesto-cloud.nomoredomains.rocks',

@@ -124,7 +124,6 @@ function App() {
   function handleLogin(password, email) {
     authorize(password, email)
         .then((data) => {
-          console.log('DATA', data);
           console.log('TOKEN', data.token);
           console.log(localStorage.getItem('jwt'));
                 if (data.token === localStorage.getItem('jwt')) {
