@@ -31,7 +31,6 @@ function Card({card, onCardClick, onCardLike, onCardDelete}) {
 
   return (
     <div className="card">
-      {console.log(card.likes)}
       <img
         src={card.link}
         className="card__image"

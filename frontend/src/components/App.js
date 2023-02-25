@@ -81,7 +81,9 @@ function App() {
     .then(() => {
       console.log(props)
       console.log(props.avatar)
+      console.log(currentUser)
       setCurrentUser({...currentUser, avatar: props.avatar})
+      console.log(currentUser)
       closeAllPopups()
     })
     .catch((err) => {console.log(err)})

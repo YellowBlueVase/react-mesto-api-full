@@ -132,18 +132,18 @@ class Api {
     }
 
     updateAvatar(data) {
-      return fetch(`${this._urlAvatar}`, {
+      return fetch(`${this._urlProfile}/avatar`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('jwt')}`
         },
         body: JSON.stringify({
-          avatar:data
+          avatar: data
         })
         })
         .then(res => {
-          return this._getResponseData(this._urlAvatar, res)
+          return this._getResponseData(`${this._urlProfile}/avatar`, res)
         })
     }
 
