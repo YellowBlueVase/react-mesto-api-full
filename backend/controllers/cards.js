@@ -29,43 +29,30 @@ module.exports.getCards = (req, res, next) => {
 module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
   const owner = { _id: req.user._id };
-  console.log(owner)
-  console.log(name)
-  console.log(req.body)
   Card.create({ name, link, owner })
     .then((card) => {
-      console.log(card)
       if (!card) {
         throw new ERROR_CODE_400('Переданы некорректные данные при создании карточки.');
       }
       res.send({ data: card });
+      // Если захочу получать просто карточку, а не объект, то data : надо будет удалить
     })
     .catch(next);
 };
 
 module.exports.deleteCard = (req, res, next) => {
-//   // User.findById(req.params.owner)
-//   //   .then((user) => {
-//   //     console.log(user)
-//   //     // if (!user) {
-//   //     //   throw new ERROR_CODE_400('Вы не можете удалять карточки, созданные другими пользователями');
-//   //     // }
-//   //     res.send({ data: user });
-//   //   })
-//   //   .catch(next);
-//   console.log(req.params.owner)
-//   if (req.params.owner === req.user._id) {
-//     Card.findByIdAndRemove(req.params._id)
-//       .then((card) => {
-//         if (!card) {
-//           throw new ERROR_CODE_404('Карточка с указанным _id не найдена.');
-//         }
-//         res.send({ data: card });
-//       })
-//       .catch(next);
-//   }
-
-  throw new ERROR_CODE_400('Вы не можете удалять карточки, созданные другими пользователями');
+  Card.findById(req.params.cardId)
+    .then((card) => {
+      const owner = card.owner.toString();
+      if (req.user._id === owner) {
+        Card.deleteOne(card)
+          .then(() => {
+            res.send(card);
+          })
+          .catch(next);
+      }
+    })
+    .catch(next);
 };
 
 module.exports.likeCard = (req, res, next) => {

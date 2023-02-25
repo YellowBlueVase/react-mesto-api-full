@@ -19,7 +19,6 @@ module.exports = (req, res, next) => {
   } catch (err) {
     throw new ERROR_CODE_401('Необходима авторизация');
   }
-
   req.user = payload; // записываем пейлоуд в объект запроса
   next(); // пропускаем запрос дальше
 };

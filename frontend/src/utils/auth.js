@@ -1,5 +1,5 @@
-// const BASE_URL = 'https://api.kirill-mesto-cloud.nomoredomains.rocks';
-const BASE_URL = 'http://localhost:3000'
+// export const BASE_URL = 'https://api.kirill-mesto-cloud.nomoredomains.rocks';
+export const BASE_URL = 'http://localhost:3000'
 
 function getResponseData(res) {
     if (res.ok) {
@@ -33,7 +33,6 @@ export const authorize = (password, email) => {
     })
     .then((res) => getResponseData(res))
     .then((data) => {
-        console.log('AUTHORIZED JWT TOKEN - ', data.token)
         localStorage.setItem('jwt', data.token);
         return data;
     })

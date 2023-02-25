@@ -33,27 +33,21 @@ function App() {
     setSelectedCard(card);
   }
 
-  function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser?._id);
-
-    if (isLiked) 
-      {
-        api.deleteLike(card._id)
-        .then((data) => {
-          setCards(data.likes)})
-        .catch((err) => {console.log(err)})
-      }
-      else {
-        api.addLike(card._id)
-        .then((data) => {
-          setCards(data.likes)})
-        .catch((err) => {console.log(err)})}
+  function handleCardLike(card, isLiked) {
+    api.changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+      setCards((state) => state.map((c) => c._id === card._id ? newCard : c))
+      })
+      .catch((err) => {
+        console.log(err);
+      })
       } 
 
   function handleCardDelete(card) {
     api.deleteCard(card._id)
     .then(() => {
-      setCards(current => current.filter(item => {return item._id !== card._id}))
+      setCards(current => current.filter(item => {
+        return item._id !== card._id}))
     })
     .catch((err) => {console.log(err)})
   }
@@ -63,7 +57,7 @@ function App() {
       name: props.name,
       link: props.link,
       likes: [],
-      owner: currentUser,
+      owner: currentUser._id,
       _id: Math.random()
     }
     api.addNewCard(newCard)
@@ -76,6 +70,7 @@ function App() {
   function handleUpdateUser(props) {
     api.updateProfile(props)
     .then(() => {
+      console.log(props)
       setCurrentUser({...currentUser, name: props.name, about: props.about})
       closeAllPopups()
     })
@@ -85,6 +80,8 @@ function App() {
   function handleUpdateAvatar(props) {
     api.updateAvatar(props.avatar)
     .then(() => {
+      console.log(props)
+      console.log(props.avatar)
       setCurrentUser({...currentUser, avatar: props.avatar})
       closeAllPopups()
     })
@@ -124,8 +121,6 @@ function App() {
   function handleLogin(password, email) {
     authorize(password, email)
         .then((data) => {
-          console.log('TOKEN', data.token);
-          console.log(localStorage.getItem('jwt'));
                 if (data.token === localStorage.getItem('jwt')) {
                     history.push('/'); 
                     setAuthEmail(email);
@@ -212,7 +207,7 @@ function App() {
     loggedIn && api
       .getProfileInfo()
       .then((currentUser) => {
-        setCurrentUser(currentUser);
+        setCurrentUser(currentUser.data);
       })
       .catch((err) => {
         console.log(err);
@@ -220,7 +215,7 @@ function App() {
     loggedIn && api
       .getInitialCards()
       .then((initialCards) => {
-        setCards(initialCards);
+        setCards(initialCards.data.reverse());
       })
       .catch((err) => {
         console.log(err);

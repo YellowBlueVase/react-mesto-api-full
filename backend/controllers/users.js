@@ -39,7 +39,7 @@ module.exports.getAllUsers = (req, res, next) => {
 };
 
 module.exports.getUser = (req, res, next) => {
-  User.findById(req.params.userId)
+  User.findById(req.user._id)
     .catch(() => { throw new ERROR_CODE_404('Пользователь по указанному _id не найден.'); })
     .then((user) => {
       if (!user) {
@@ -51,7 +51,7 @@ module.exports.getUser = (req, res, next) => {
 };
 
 module.exports.getProfile = (req, res, next) => {
-  User.findById(req.params.me)
+  User.findById(req.user._id)
     .then((user) => {
       if (!user) {
         throw new ERROR_CODE_404('Пользователь по указанному _id не найден.');
@@ -94,7 +94,7 @@ module.exports.createUser = (req, res, next) => {
 module.exports.updateProfile = (req, res, next) => {
   const { name, about } = req.body;
   User.findByIdAndUpdate(
-    req.params.me,
+    req.user._id,
     { name, about },
     opts,
   )
@@ -109,7 +109,7 @@ module.exports.updateProfile = (req, res, next) => {
 
 module.exports.updateAvatar = (req, res, next) => {
   User.findByIdAndUpdate(
-    req.params.userId,
+    req.user._id,
     { new: true },
     opts,
   )
@@ -117,6 +117,7 @@ module.exports.updateAvatar = (req, res, next) => {
       if (!user) {
         throw new ERROR_CODE_404('Пользователь по указанному _id не найден.');
       }
+      console.log(user)
       res.send({ data: user });
     })
     .catch(next);

@@ -1,11 +1,13 @@
+import { BASE_URL } from "./auth";
+
 class Api {
     constructor(config) {
-        this._url = config.url;
+        this._url = `${config.url}/`;
         this._cardId = config._id;
         this._likesCounter = config.likes;
         this._urlCards = `${this._url}cards`;
         this._urlProfile = `${this._url}users/me`;
-        this._urlAvatar = `${this._url}avatar`;
+        this._urlAvatar = `${this._urlProfile}/avatar`;
     }
 
     _getResponseData(url, res) {
@@ -18,7 +20,7 @@ class Api {
       return fetch(this._urlProfile, {
         method: 'GET',
         headers: {
-          'content-type': 'application/json',
+          'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('jwt')}`
         },
         })
@@ -31,7 +33,7 @@ class Api {
       return fetch(`${this._urlCards}/${cardId}`, {
         method: 'GET',
         headers: {
-          'content-type': 'application/json',
+          'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('jwt')}`
         },
         })
@@ -44,7 +46,7 @@ class Api {
       return fetch(this._urlCards, {
         method: 'GET',
         headers: {
-          'content-type': 'application/json',
+          'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('jwt')}`
         },
         })
@@ -57,7 +59,7 @@ class Api {
       return fetch(this._urlProfile, {
         method: 'PATCH',
         headers: {
-          'content-type': 'application/json',
+          'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('jwt')}`
         },
         body: JSON.stringify({
@@ -71,10 +73,11 @@ class Api {
     }
 
     addNewCard(data) {
+      console.log(data)
       return fetch(this._urlCards, {
         method: 'POST',
         headers: {
-          'content-type': 'application/json',
+          'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('jwt')}`
         },
         body: JSON.stringify({
@@ -93,46 +96,33 @@ class Api {
       return fetch(`${this._urlCards}/${cardId}`, {
         method: 'DELETE',
         headers: {
-          'content-type': 'application/json',
+          'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('jwt')}`
         },
-        })
+      })
       .then((res) => {
           return this._getResponseData(`${this._urlCards}/${cardId}`, res)
-        })
-      }
-    
-    addLike(cardId) {
-      return fetch(`${this._urlCards}/${cardId}/likes`, {
-        method: 'PUT',
-        headers: {
-          'content-type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-        },
-        })
-        .then((res) => {
-          return this._getResponseData(`${this._urlCards}/${cardId}/likes`, res)
-        })
+      })
     }
     
-    deleteLike(cardId) {
+    changeLikeCardStatus(cardId, isLiked) {
       return fetch(`${this._urlCards}/${cardId}/likes`, {
-        method: 'DELETE',
+        method: `${isLiked ? 'PUT' : 'DELETE'}`,
         headers: {
-          'content-type': 'application/json',
+          'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('jwt')}`
         },
-        })
-        .then((res) => {
-          return this._getResponseData(`${this._urlCards}/${cardId}/likes`, res)
-        })
+      })
+      .then((res) => {
+        return this._getResponseData(`${this._urlCards}/${cardId}/likes`, res)
+      })
     }
 
     showLikes(cardId) {
       return fetch(`${this._urlCards}/${cardId}/likes`, {
         method: 'GET',
         headers: {
-          'content-type': 'application/json',
+          'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('jwt')}`
         },
         })
@@ -145,7 +135,7 @@ class Api {
       return fetch(`${this._urlAvatar}`, {
         method: 'PATCH',
         headers: {
-          'content-type': 'application/json',
+          'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('jwt')}`
         },
         body: JSON.stringify({
@@ -160,7 +150,6 @@ class Api {
 }
 
 const api = new Api({
-    // url: 'https://api.kirill-mesto-cloud.nomoredomains.rocks/',
-    url: 'http://localhost:3000/'})
+    url: BASE_URL})
 
 export default api;

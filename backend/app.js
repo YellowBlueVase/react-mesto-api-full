@@ -22,14 +22,10 @@ const app = express();
 
 const options = {
   origin: [
-    'localhost:3000',
-    'http://localhost:3000',
     'localhost:3001',
     'http://localhost:3001',
     'http://kirill-mesto-cloud.nomoredomains.rocks',
     'https://kirill-mesto-cloud.nomoredomains.rocks',
-    'http://api.kirill-mesto-cloud.nomoredomains.rocks',
-    'https://api.kirill-mesto-cloud.nomoredomains.rocks',
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
@@ -38,22 +34,7 @@ const options = {
   credentials: true,
 };
 app.use('*', cors(options));
-// const allowedCors = [
-//   'localhost:3000',
-//   'http://localhost:3000',
-//   'http://kirill-mesto-cloud.nomoredomains.rocks',
-//   'https://kirill-mesto-cloud.nomoredomains.rocks',
-//   'http://api.kirill-mesto-cloud.nomoredomains.rocks',
-//   'https://api.kirill-mesto-cloud.nomoredomains.rocks',
-// ];
 
-// app.use((req, res, next) => {
-//   const { origin } = req.headers;
-//   if (allowedCors.includes(origin)) {
-//     res.header('Access-Control-Allow-Origin', '*');
-//   }
-//   next();
-// });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
