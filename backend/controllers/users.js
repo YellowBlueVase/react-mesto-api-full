@@ -117,7 +117,6 @@ module.exports.updateAvatar = (req, res, next) => {
       if (!user) {
         throw new ERROR_CODE_404('Пользователь по указанному _id не найден.');
       }
-      console.log(user)
       res.send({ data: user });
     })
     .catch(next);

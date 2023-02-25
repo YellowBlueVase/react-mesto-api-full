@@ -31,6 +31,7 @@ function Card({card, onCardClick, onCardLike, onCardDelete}) {
 
   return (
     <div className="card">
+      {console.log(card.likes)}
       <img
         src={card.link}
         className="card__image"
@@ -39,6 +40,7 @@ function Card({card, onCardClick, onCardLike, onCardDelete}) {
       />
       <h2 className="card__title">{card.name}</h2>
       <button 
+        key={card._id}
         type="button" 
         name="like-button" 
         className={cardLikeButtonClassName}

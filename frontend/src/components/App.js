@@ -70,7 +70,6 @@ function App() {
   function handleUpdateUser(props) {
     api.updateProfile(props)
     .then(() => {
-      console.log(props)
       setCurrentUser({...currentUser, name: props.name, about: props.about})
       closeAllPopups()
     })

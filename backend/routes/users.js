@@ -3,7 +3,7 @@ const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const auth = require('../middlewares/auth');
 const {
-  getAllUsers, getUser, getProfile, updateProfile, updateAvatar, login, createUser,
+  getAllUsers, getUser, getProfile, updateProfile, updateAvatar,
 } = require('../controllers/users');
 
 Joi.objectId = require('joi-objectid')(Joi);
@@ -36,9 +36,5 @@ router.patch('/users/me/avatar', celebrate(
     }).unknown(true),
   },
 ), auth, updateAvatar);
-
-// router.post('/signin', celebrate(celebrateUser), login);
-
-// router.post('/signup', celebrate(celebrateUser), createUser);
 
 module.exports = router;
