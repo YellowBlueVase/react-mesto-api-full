@@ -1,14 +1,11 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-underscore-dangle */
 const Card = require('../models/cards');
-const User = require('../models/users');
 
 // Bad request
 const ERROR_CODE_400 = require('../errors/error400');
 // Forbidden
 const ERROR_CODE_403 = require('../errors/error403');
-// Not Found
-const ERROR_CODE_404 = require('../errors/error404');
 
 const opts = {
   new: true,
