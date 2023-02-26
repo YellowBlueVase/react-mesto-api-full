@@ -108,14 +108,12 @@ module.exports.updateProfile = (req, res, next) => {
 };
 
 module.exports.updateAvatar = (req, res, next) => {
-  console.log('USER 1>>', req.user._id)
   User.findByIdAndUpdate(
     req.user._id,
-    { new: true },
+    { avatar: req.body.avatar },
     opts,
   )
     .then((user) => {
-      console.log('USER 2>>', user)
       if (!user) {
         throw new ERROR_CODE_404('Пользователь по указанному _id не найден.');
       }
