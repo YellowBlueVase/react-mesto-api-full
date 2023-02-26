@@ -56,13 +56,10 @@ function App() {
     const newCard = {
       name: props.name,
       link: props.link,
-      likes: [],
-      owner: currentUser._id,
-      _id: Math.random()
     }
     api.addNewCard(newCard)
-    .then(() => {
-      setCards([newCard, ...cards]);
+    .then((card) => {
+      setCards([card.data, ...cards]);
     })
     .catch((err) => {console.log(err)})
   }
