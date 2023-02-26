@@ -1,5 +1,5 @@
-// export const BASE_URL = 'https://api.kirill-mesto-cloud.nomoredomains.rocks';
-export const BASE_URL = 'http://localhost:3000'
+export const BASE_URL = 'https://api.kirill-mesto-cloud.nomoredomains.rocks';
+// export const BASE_URL = 'http://localhost:3000'
 
 function getResponseData(res) {
     if (res.ok) {
