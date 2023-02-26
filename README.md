@@ -3,5 +3,5 @@
   
 Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке. __
 IP 51.250.72.222
-Frontend https://www.kirill-mesto-cloud.nomoredomains.rocks __
+Frontend https://kirill-mesto-cloud.nomoredomains.rocks __
 Backend https://api.kirill-mesto-cloud.nomoredomains.rocks __

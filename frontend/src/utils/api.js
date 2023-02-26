@@ -73,7 +73,6 @@ class Api {
     }
 
     addNewCard(data) {
-      console.log(data)
       return fetch(this._urlCards, {
         method: 'POST',
         headers: {
