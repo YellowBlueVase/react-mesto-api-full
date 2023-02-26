@@ -1,13 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
-const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const routerUsers = require('./routes/users');
 const routerCards = require('./routes/cards');
 const centralError = require('./errors/centralError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const Error404 = require('./errors/error404');
 
 mongoose.set('strictQuery', true);
 mongoose.connect('mongodb://localhost:27017/mestodb', {
@@ -36,8 +36,8 @@ app.use('*', cors(options));
 
 app.use(requestLogger);
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.get('/crash-test', () => {
   setTimeout(() => {
@@ -46,6 +46,9 @@ app.get('/crash-test', () => {
 });
 app.use('/', routerUsers);
 app.use('/', routerCards);
+app.use('*', (req, res, next) => {
+  next(new Error404('Такая страница не существует, пожалуйста, вернитесь на главную.'));
+});
 app.use(errorLogger);
 app.use(errors());
 app.use(centralError);

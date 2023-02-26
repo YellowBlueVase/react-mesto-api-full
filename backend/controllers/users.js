@@ -7,8 +7,6 @@ const User = require('../models/users');
 const ERROR_CODE_400 = require('../errors/error400');
 // Not Found
 const ERROR_CODE_404 = require('../errors/error404');
-// Conflict
-const ERROR_CODE_409 = require('../errors/error409');
 
 const opts = {
   new: true,
@@ -31,6 +29,7 @@ module.exports.getAllUsers = (req, res, next) => {
   User.find({})
     .then((users) => {
       if (!users) {
+        res.send({ data: [] });
         throw new ERROR_CODE_400('Переданы некорректные данные при создании пользователя.');
       }
       res.send({ data: users });
@@ -40,14 +39,19 @@ module.exports.getAllUsers = (req, res, next) => {
 
 module.exports.getUser = (req, res, next) => {
   User.findById(req.user._id)
-    .catch(() => { throw new ERROR_CODE_404('Пользователь по указанному _id не найден.'); })
     .then((user) => {
       if (!user) {
-        throw new ERROR_CODE_400('Пользователь по указанному _id не найден.');
+        throw new ERROR_CODE_404('Пользователь по указанному _id не найден.');
       }
       res.send({ data: user });
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        next(new ERROR_CODE_400('Переданы некорректные данные, проверьте корректность запроса.'));
+      } else {
+        next(err);
+      }
+    });
 };
 
 module.exports.getProfile = (req, res, next) => {
@@ -70,13 +74,7 @@ module.exports.createUser = (req, res, next) => {
       email: req.body.email,
       password: hash,
     }))
-    .catch(() => {
-      throw new ERROR_CODE_409('Пользователь с таким email адресом уже зарегистрирован');
-    })
     .then((user) => {
-      if (!user) {
-        throw new ERROR_CODE_404('Пользователь по указанному _id не найден.');
-      }
       res.send({
         data: {
           name: user.name,
@@ -88,7 +86,13 @@ module.exports.createUser = (req, res, next) => {
         },
       });
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        next(new ERROR_CODE_400('Новый пользователь не создан, проверьте корректность запроса.'));
+      } else {
+        next(err);
+      }
+    });
 };
 
 module.exports.updateProfile = (req, res, next) => {
@@ -104,7 +108,13 @@ module.exports.updateProfile = (req, res, next) => {
       }
       res.send({ data: user });
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        next(new ERROR_CODE_400('Переданы некорректные данные, проверьте корректность запроса.'));
+      } else {
+        next(err);
+      }
+    });
 };
 
 module.exports.updateAvatar = (req, res, next) => {
@@ -119,5 +129,11 @@ module.exports.updateAvatar = (req, res, next) => {
       }
       res.send({ user });
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        next(new ERROR_CODE_400('Переданы некорректные данные, проверьте корректность запроса.'));
+      } else {
+        next(err);
+      }
+    });
 };
