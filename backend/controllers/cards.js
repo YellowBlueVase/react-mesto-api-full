@@ -44,10 +44,10 @@ module.exports.deleteCard = (req, res, next) => {
       if (req.user._id !== owner) {
         throw new ERROR_CODE_403('Вы не можете удалить чужую карточку.');
       }
-      Card.deleteOne(card)
-        .then(() => {
-          res.send(card);
-        });
+      return Card.deleteOne(card);
+    })
+    .then((card) => {
+      res.send(card);
     })
     .catch((err) => {
       if (err.name === 'CastError') {

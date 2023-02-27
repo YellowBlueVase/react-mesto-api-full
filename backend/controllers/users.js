@@ -107,9 +107,7 @@ module.exports.updateProfile = (req, res, next) => {
       res.send({ data: user });
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new ERROR_CODE_400('Переданы некорректные данные, проверьте корректность запроса.'));
-      } else if (err.name === 'CastError') {
+      if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new ERROR_CODE_400('Переданы некорректные данные, проверьте корректность запроса.'));
       } else {
         next(err);
@@ -130,9 +128,7 @@ module.exports.updateAvatar = (req, res, next) => {
       res.send({ user });
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new ERROR_CODE_400('Переданы некорректные данные, проверьте корректность запроса.'));
-      } else if (err.name === 'CastError') {
+      if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new ERROR_CODE_400('Переданы некорректные данные, проверьте корректность запроса.'));
       } else {
         next(err);
